@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication</title>
+    <script>
+        async function submitPost(e) {
+            e.preventDefault();                         // Prevent page from refreshing
+
+            const form = e.target;                      // Get form
+            const formData = new FormData(form)         // Convert form into FormData
+            let convertedObj = Object.fromEntries(formData.entries())       // Convert FormData into object
+
+            await fetch('http://localhost:3000/people', {                   // POST form data to API at localhost:3000
+                method: "POST",
+                body: JSON.stringify(convertedObj),                 // Convert data into a JSON string for network transfer
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }})
+                .then((response) => response.json())                    // Get response data
+                .then((data) => {
+                    console.log(data);              // Log response data
+                }).catch((err) => {
+                    console.log(err.message);       // Log error messages
+                });
+        }
+
+        async function submitGet(e) {
+            e.preventDefault();                         // Prevent page from refreshing
+
+            const form = e.target;                      // Get form
+            const formData = new FormData(form);        // Get FormData from form
+            let convertedObj = Object.fromEntries(formData.entries())       // Convert formData into object
+
+            await fetch('http://localhost:3000/people/' + convertedObj.firstName, {     // Request data from API
+                method: "GET",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                }).catch((err) => {
+                        console.log(err.message);
+                    }
+                );
+        }
+    </script>
+</head>
+<body>
+    <h3>POST Request</h3>
+    <form onsubmit="submitPost()">
+        <label for="firstName">First name:</label><br>
+        <input type="text" name="firstName"><br>
+        <label for="lastName">Last name:</label><br>
+        <input type="text" name="lastName"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <h3>GET Request</h3>
+    <form onsubmit="submitGet()">
+        <label for="firstName">First name:</label><br>
+        <input type="text" name="firstName"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>
