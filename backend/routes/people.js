@@ -3,10 +3,10 @@ const Person = require('../models/PersonModel');    // Import model
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-router.get('/:firstName', async (req, res) => {     // Create route for GET request
+router.get('/:email', async (req, res) => {     // Create route for GET request
     try {
         const person = await Person.findOne({       // Find one person in database based on firstName. Returns null if
-            firstName: req.params.firstName         // not in database
+            email: req.params.email         // not in database
         });
 
         if (person == null || person == []) {
@@ -21,8 +21,8 @@ router.get('/:firstName', async (req, res) => {     // Create route for GET requ
 
 router.post('/', async (req, res) => {              // Create route for POST request
     const person = new Person({                     // Create new person based on body of request
-        firstName: req.body.firstName,
-        lastName: bcrypt.hash(req.body.lastName),
+        email: req.body.email,
+        password: bcrypt.hash(req.body.password),
     });
     try {
         const newPerson = await person.save();      // Add newPerson to database

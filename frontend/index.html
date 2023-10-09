@@ -32,7 +32,7 @@
             const formData = new FormData(form);        // Get FormData from form
             let convertedObj = Object.fromEntries(formData.entries())       // Convert formData into object
 
-            await fetch('http://localhost:3000/people/' + convertedObj.firstName, {     // Request data from API
+            await fetch('http://localhost:3000/people/' + convertedObj.email, {     // Request data from API
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -51,16 +51,16 @@
 <body>
     <h3>POST Request</h3>
     <form onsubmit="submitPost()">
-        <label for="firstName">First name:</label><br>
-        <input type="text" name="firstName"><br>
-        <label for="lastName">Last name:</label><br>
-        <input type="text" name="lastName"><br><br>
+        <label for="email">Email:</label><br>
+        <input type="text" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="text" name="password"><br><br>
         <input type="submit" value="Submit">
     </form>
     <h3>GET Request</h3>
     <form onsubmit="submitGet()">
-        <label for="firstName">First name:</label><br>
-        <input type="text" name="firstName"><br>
+        <label for="email">Email:</label><br>
+        <input type="text" name="email"><br>
         <input type="submit" value="Submit">
     </form>
 
